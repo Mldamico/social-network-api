@@ -1,13 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Persistence;
 
 namespace SocialNet;
 
 public class Startup
 {
-    public IConfiguration Configuration { get; }
-    public Startup(IConfiguration configuration)
+    private readonly IConfiguration _config;
+
+    public Startup(IConfiguration config)
     {
-        Configuration = configuration;
+        _config = config;
     }
 
     public void ConfigureServices(IServiceCollection services)
@@ -16,6 +19,10 @@ public class Startup
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"});
+        });
+        services.AddDbContext<DataContext>(opt =>
+        {
+            opt.UseSqlite(_config.GetConnectionString("DefaultConnection"));
         });
 
     }
