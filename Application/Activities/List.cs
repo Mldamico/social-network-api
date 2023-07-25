@@ -20,7 +20,7 @@ public class List
             _context = context;
         }
 
-        public async Task<List<Activity>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<List<Activity?>> Handle(Query request, CancellationToken cancellationToken)
         {
             return await _context.Activities.ToListAsync();
         }

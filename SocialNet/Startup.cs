@@ -31,7 +31,7 @@ public class Startup
         {
             opt.AddPolicy("CorsPolicy", policy =>
             {
-                policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("htto://localhost:3000");
+                policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("htto://localhost:5173");
             });
         });
 
@@ -50,6 +50,7 @@ public class Startup
 
         // app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseCors("CorsPolicy");
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
