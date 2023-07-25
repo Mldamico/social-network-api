@@ -1,3 +1,5 @@
+using Application.Activities;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistence;
@@ -24,6 +26,16 @@ public class Startup
         {
             opt.UseSqlite(_config.GetConnectionString("DefaultConnection"));
         });
+
+        services.AddCors(opt =>
+        {
+            opt.AddPolicy("CorsPolicy", policy =>
+            {
+                policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("htto://localhost:3000");
+            });
+        });
+
+        services.AddMediatR(typeof(List.Handler).Assembly);
 
     }
 
